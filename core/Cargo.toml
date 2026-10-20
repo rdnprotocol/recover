@@ -1,0 +1,8 @@
+[package]
+name = "metarecover-core"
+version = "0.1.0"
+edition = "2021"
+description = "MetaRecover file recovery engine: NTFS/FAT/exFAT deleted-file scan and signature carving"
+
+[dependencies]
+serde = { version = "1", features = ["derive"] }

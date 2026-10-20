@@ -1,0 +1,12 @@
+[package]
+name = "metarecover-cli"
+version = "0.1.0"
+edition = "2021"
+
+[[bin]]
+name = "metarecover"
+path = "src/main.rs"
+
+[dependencies]
+metarecover-core = { path = "../core" }
+serde_json = "1"

@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="mn">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MetaRecover</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <svg viewBox="0 0 32 32" class="logo" aria-hidden="true">
+        <rect x="1" y="1" width="30" height="30" rx="8" fill="url(#lg)" />
+        <rect x="10" y="8" width="12" height="17" rx="2" fill="#fff" />
+        <path d="M6.5 15a10 10 0 0 1 17-7" stroke="#FFC83D" stroke-width="2.6" fill="none" stroke-linecap="round" />
+        <path d="M21 4.5l4.5 3.4-5 2.2z" fill="#FFC83D" />
+        <defs><linearGradient id="lg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0e7490" /><stop offset="1" stop-color="#2249c2" /></linearGradient></defs>
+      </svg>
+      <span>Meta<b>Recover</b></span>
+    </div>
+    <nav class="steps" id="steps">
+      <span data-step="home" class="on">1. Байршил</span>
+      <span data-step="scan">2. Скан</span>
+      <span data-step="results">3. Сэргээх</span>
+    </nav>
+    <div class="topbar-right" id="adminBadge"></div>
+  </header>
+
+  <!-- 1. Choose location -->
+  <main id="home" class="screen active">
+    <div class="home-wrap">
+      <h1>Хаанаас файл сэргээх вэ?</h1>
+      <p class="lead">Устгагдсан файл байсан диск, USB эсвэл SD картаа сонгоно уу. Сэргээсэн файлыг өөр дискэнд хадгалахаа бүү мартаарай.</p>
+
+      <div id="adminWarn" class="notice warn hidden">
+        <b>Администратор эрх шаардлагатай.</b> Дискийг шууд уншихын тулд програмыг "Run as administrator" горимоор нээнэ үү.
+      </div>
+
+      <div class="section-head">
+        <h2>Диск ба хуваалтууд</h2>
+        <button class="btn ghost small" id="refreshBtn" title="Дахин ачаалах">
+          <svg viewBox="0 0 20 20"><path d="M16 10a6 6 0 1 1-1.8-4.3M16 3.5v3.5h-3.5" /></svg>Шинэчлэх
+        </button>
+      </div>
+      <div id="volumes" class="cards"><div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div></div>
+
+      <div class="section-head"><h2>Физик диск ба бусад</h2></div>
+      <div id="disks" class="cards">
+        <button class="card image-card" id="imageBtn">
+          <div class="card-icon"><svg viewBox="0 0 24 24"><path d="M6 3h8l4 4v14H6z" /><path d="M14 3v4h4M9 13h6M9 17h4" /></svg></div>
+          <div class="card-body">
+            <div class="card-title">Disk image файл</div>
+            <div class="card-sub">.img, .dd, .raw, .bin</div>
+          </div>
+        </button>
+      </div>
+
+      <div class="mode-row">
+        <div class="mode-switch" role="radiogroup">
+          <label class="mode">
+            <input type="radio" name="mode" value="quick" checked />
+            <span><b>Хурдан скан</b><small>Саяхан устгасан файлыг нэр, хавтастай нь олно. Хэдэн секундээс минут.</small></span>
+          </label>
+          <label class="mode">
+            <input type="radio" name="mode" value="deep" />
+            <span><b>Гүн скан</b><small>Format хийсэн, RAW болсон дискнээс файлын төрлөөр нь хайна. Удаан.</small></span>
+          </label>
+        </div>
+        <button class="btn primary big" id="scanBtn" disabled>Скан эхлүүлэх</button>
+      </div>
+    </div>
+  </main>
+
+  <!-- 2. Scanning -->
+  <main id="scan" class="screen">
+    <div class="scan-wrap">
+      <div class="radar"><span></span><span></span><span></span>
+        <svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="2" /><circle cx="17" cy="12" r="1.2" /></svg>
+      </div>
+      <h1 id="scanTitle">Скан хийж байна…</h1>
+      <p class="lead" id="scanDevice"></p>
+      <div class="phase" id="scanPhase">Бэлдэж байна…</div>
+      <div class="bar"><div id="scanBar"></div></div>
+      <div class="scan-stats">
+        <div><span id="scanPct">0%</span><small>явц</small></div>
+        <div><span id="scanFound">0</span><small>олдсон файл</small></div>
+        <div><span id="scanTime">0:00</span><small>хугацаа</small></div>
+        <div><span id="scanEta">—</span><small>үлдсэн</small></div>
+      </div>
+      <button class="btn ghost" id="cancelScanBtn">Зогсоох ба үр дүн харах</button>
+      <p class="hint">Скан хийх үед тухайн диск рүү юм бүү хуулаарай — устгагдсан файлуудыг дарж бичнэ.</p>
+    </div>
+  </main>
+
+  <!-- 3. Results -->
+  <main id="results" class="screen">
+    <aside class="sidebar">
+      <button class="btn ghost small back" id="backBtn">
+        <svg viewBox="0 0 20 20"><path d="M12 4l-6 6 6 6" /></svg>Дахин сонгох
+      </button>
+      <div class="side-title">Төрөл</div>
+      <ul id="categories" class="cat-list"></ul>
+      <div class="side-title">Шүүлтүүр</div>
+      <label class="toggle"><input type="checkbox" id="deletedOnly" checked /><span></span>Зөвхөн устгагдсан</label>
+      <select id="qualityFilter" class="select">
+        <option value="">Бүх чанар</option>
+        <option value="good">Сайн</option>
+        <option value="unknown">Тодорхойгүй</option>
+        <option value="poor">Гэмтсэн байж магадгүй</option>
+      </select>
+      <div class="scan-summary" id="scanSummary"></div>
+    </aside>
+
+    <section class="main-col">
+      <div class="toolbar">
+        <div class="search">
+          <svg viewBox="0 0 20 20"><circle cx="9" cy="9" r="5.5" /><path d="M13.2 13.2L17 17" /></svg>
+          <input id="search" type="search" placeholder="Файлын нэр эсвэл хавтсаар хайх…" />
+        </div>
+        <div class="result-count" id="resultCount"></div>
+      </div>
+      <div class="table-wrap" id="tableWrap">
+        <table class="files">
+          <thead>
+            <tr>
+              <th class="c-check"><input type="checkbox" id="checkAll" title="Шүүлтүүрийн бүх файлыг сонгох" /></th>
+              <th data-sort="name">Нэр</th>
+              <th data-sort="path">Хавтас</th>
+              <th data-sort="size" class="num">Хэмжээ</th>
+              <th data-sort="date">Огноо</th>
+              <th>Төлөв</th>
+            </tr>
+          </thead>
+          <tbody id="rows"></tbody>
+        </table>
+        <div class="empty hidden" id="empty">
+          <svg viewBox="0 0 48 48"><path d="M8 14h12l4 4h16v20H8z" /><path d="M19 28h10" /></svg>
+          <p>Энэ шүүлтүүрээр файл олдсонгүй.</p>
+          <small>Устгагдсан файл олдохгүй бол <b>Гүн скан</b> хийж үзээрэй.</small>
+        </div>
+        <button class="btn ghost small more hidden" id="moreBtn">Цааш ачаалах</button>
+      </div>
+    </section>
+
+    <aside class="preview" id="preview">
+      <div class="preview-empty">
+        <svg viewBox="0 0 48 48"><rect x="8" y="8" width="32" height="32" rx="4" /><circle cx="18" cy="19" r="3" /><path d="M10 36l10-10 6 6 5-5 9 9" /></svg>
+        <p>Файл дээр дарж урьдчилан харна уу</p>
+      </div>
+    </aside>
+
+    <footer class="actionbar">
+      <div id="selInfo">Сонгосон файл алга</div>
+      <button class="btn primary" id="recoverBtn" disabled>
+        <svg viewBox="0 0 20 20"><path d="M10 3v10M5.5 8.5L10 13l4.5-4.5M4 16h12" /></svg>Сэргээх
+      </button>
+    </footer>
+  </main>
+
+  <!-- Recover dialog -->
+  <div class="modal hidden" id="recoverModal">
+    <div class="dialog">
+      <h2 id="recTitle">Файл сэргээх</h2>
+      <div id="recSetup">
+        <p class="muted" id="recWhat"></p>
+        <label class="field-label">Хадгалах хавтас</label>
+        <div class="pick">
+          <input id="outDir" readonly placeholder="Өөр диск дээрх хавтас сонгоно уу" />
+          <button class="btn ghost" id="pickDir">Сонгох…</button>
+        </div>
+        <div class="notice warn hidden" id="sameVolWarn">Энэ хавтас сэргээж буй дисктэй ижил байна. Өөр диск (жишээ нь гадаад HDD, өөр хуваалт) сонгоно уу.</div>
+        <label class="check"><input type="checkbox" id="keepPaths" checked /> Хавтасны бүтцийг хадгалах</label>
+        <div class="dialog-actions">
+          <button class="btn ghost" id="recCancel">Болих</button>
+          <button class="btn primary" id="recStart" disabled>Сэргээж эхлэх</button>
+        </div>
+      </div>
+      <div id="recRun" class="hidden">
+        <div class="bar"><div id="recBar"></div></div>
+        <p class="muted mono" id="recFile"></p>
+        <div class="dialog-actions"><button class="btn ghost" id="recStop">Зогсоох</button></div>
+      </div>
+      <div id="recDone" class="hidden">
+        <div class="done-icon"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" /></svg></div>
+        <p id="recResult"></p>
+        <pre id="recErrors" class="errors hidden"></pre>
+        <div class="dialog-actions">
+          <button class="btn ghost" id="recClose">Хаах</button>
+          <button class="btn primary" id="recOpen">Хавтас нээх</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast hidden" id="toast"></div>
+  <script src="app.js"></script>
+</body>
+</html>

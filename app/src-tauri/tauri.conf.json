@@ -1,0 +1,36 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "MetaRecover",
+  "version": "0.1.0",
+  "identifier": "mn.metadesk.recover",
+  "build": {
+    "frontendDist": "../ui"
+  },
+  "app": {
+    "withGlobalTauri": true,
+    "windows": [
+      {
+        "title": "MetaRecover — Файл сэргээх",
+        "width": 1180,
+        "height": 760,
+        "minWidth": 940,
+        "minHeight": 600,
+        "center": true
+      }
+    ],
+    "security": {
+      "csp": "default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self'"
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": ["nsis", "msi"],
+    "publisher": "MetaDesk",
+    "copyright": "© 2026 MetaDesk",
+    "shortDescription": "Устгагдсан файл сэргээх",
+    "icon": ["icons/32x32.png", "icons/128x128.png", "icons/128x128@2x.png", "icons/icon.ico", "icons/icon.png"],
+    "windows": {
+      "nsis": { "installMode": "perMachine", "languages": ["English"] }
+    }
+  }
+}
