@@ -110,7 +110,7 @@ footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; g
       </svg>
       <span>Meta<b>Recover</b></span>
     </a>
-    <a class="gh" href="https://github.com/rdnprotocol/metarecover">
+    <a class="gh" href="https://github.com/rdnprotocol/recover">
       <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
       GitHub
     </a>
@@ -121,11 +121,11 @@ footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; g
       <h1>Устгагдсан файлаа <span>буцааж</span> аваарай</h1>
       <p class="lead">Санамсаргүй устгасан, format хийсэн, RAW болсон дискнээс зураг, бичиг баримт, видеогоо сэргээнэ. Үнэгүй, нээлттэй эх, бүрэн Монгол хэлтэй.</p>
       <div class="cta">
-        <a class="btn primary" id="dlMain" href="https://github.com/rdnprotocol/metarecover/releases/latest">
+        <a class="btn primary" id="dlMain" href="https://github.com/rdnprotocol/recover/releases/latest">
           <svg viewBox="0 0 24 24"><path d="M12 3v12m0 0l-5-5m5 5l5-5M4 19h16"/></svg>
           Windows-д татах
         </a>
-        <a class="btn ghost" href="https://github.com/rdnprotocol/metarecover">Эх код харах</a>
+        <a class="btn ghost" href="https://github.com/rdnprotocol/recover">Эх код харах</a>
       </div>
       <div class="meta" id="dlMeta">Windows 10 / 11 · 64-bit</div>
     </div>
@@ -186,19 +186,19 @@ footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; g
     <h2>Татаж авах</h2>
     <p id="relLine">Хамгийн сүүлийн хувилбар</p>
     <div class="dl">
-      <a class="card" id="aSetup" href="https://github.com/rdnprotocol/metarecover/releases/latest">
+      <a class="card" id="aSetup" href="https://github.com/rdnprotocol/recover/releases/latest">
         <div class="rec">Санал болгох</div>
         <h3>Installer (.exe)</h3>
         <p>Суулгаад Start цэснээс ажиллуулна.</p>
         <div class="size" data-size></div>
       </a>
-      <a class="card" id="aMsi" href="https://github.com/rdnprotocol/metarecover/releases/latest">
+      <a class="card" id="aMsi" href="https://github.com/rdnprotocol/recover/releases/latest">
         <div class="rec">&nbsp;</div>
         <h3>MSI багц</h3>
         <p>Байгууллагад олноор суулгахад тохиромжтой.</p>
         <div class="size" data-size></div>
       </a>
-      <a class="card" id="aCli" href="https://github.com/rdnprotocol/metarecover/releases/latest">
+      <a class="card" id="aCli" href="https://github.com/rdnprotocol/recover/releases/latest">
         <div class="rec">&nbsp;</div>
         <h3>Командын мөр (CLI)</h3>
         <p>Суулгах шаардлагагүй ганц <code>metarecover.exe</code>.</p>
@@ -220,13 +220,13 @@ footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; g
 <footer>
   <div class="wrap">
     <span>© 2026 MetaDesk · MIT лиценз</span>
-    <a href="https://github.com/rdnprotocol/metarecover/issues">Алдаа мэдээлэх</a>
+    <a href="https://github.com/rdnprotocol/recover/issues">Алдаа мэдээлэх</a>
   </div>
 </footer>
 
 <script>
 (function () {
-  var repo = 'rdnprotocol/metarecover';
+  var repo = 'rdnprotocol/recover';
   function mb(n) { return (n / 1048576).toFixed(1) + ' MB'; }
   fetch('https://api.github.com/repos/' + repo + '/releases/latest')
     .then(function (r) { return r.ok ? r.json() : Promise.reject(); })

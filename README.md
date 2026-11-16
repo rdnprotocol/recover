@@ -1,8 +1,8 @@
 # MetaRecover — устгагдсан файл сэргээх програм
 
-Wondershare Recoverit маягийн Windows desktop програм. Rust engine + Tauri GUI, бүрэн Монгол хэлтэй.
+Устгагдсан файлыг сэргээх Windows desktop програм. Rust engine + Tauri GUI, бүрэн Монгол хэлтэй.
 
-**[⬇ Татаж авах](https://rdnprotocol.github.io/metarecover/)** · [Releases](https://github.com/rdnprotocol/metarecover/releases/latest)
+**[⬇ Татаж авах](https://rdnprotocol.github.io/recover/)** · [Releases](https://github.com/rdnprotocol/recover/releases/latest)
 
 ## Боломжууд
 
